@@ -1,4 +1,4 @@
-<a href="https://colab.research.google.com/github/Lewis34cs/corona_audio/blob/main/covid_proj.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href=\"https://colab.research.google.com/github/Lewis34cs/corona_audio/blob/main/covid_proj_p1.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>
 
 # COVID-19 Classification Through Various Methods 
 
