@@ -1,10 +1,10 @@
 # COVID-19 Classification Through Various Methods 
 
 Part 1:
-<a href="https://colab.research.google.com/github/Lewis34cs/corona_audio/blob/main/covid_proj_p1.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/Lewis34cs/corona_audio/blob/main/covid_proj_p1_xrays.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 Part 2:
-<a href="https://colab.research.google.com/github/Lewis34cs/corona_audio/blob/main/covid_proj_p2.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/Lewis34cs/corona_audio/blob/main/covid_proj_p2_audio.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 **Author**: Christopher Lewis
 
