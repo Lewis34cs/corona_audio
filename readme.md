@@ -85,7 +85,7 @@ plt.show()
     
 
 
-![png](/images/images/output_18_1.png)
+![png](/images/output_18_1.png)
 
 
 From here, we created new image data generators using the chest x-ray images, setting the batch size to 32 and fed the generators into a CNN model. The model received a 94% accuracy score, approximately 180% better than our baseline model. 
@@ -128,7 +128,7 @@ best_model.evaluate(cl_test_generator, verbose=1)
     
 
 
-![png](/images/images/output_26_1.png)
+![png](/images/output_26_1.png)
 
 
     25/25 [==============================] - 7s 271ms/step - loss: 0.1188 - acc: 0.9679 - precision: 0.9704 - recall: 0.9679 - auc: 0.9941
@@ -168,7 +168,7 @@ explain_image(basic_prep_cnn, cl_train_generator, num_samples=2000, num_feats=3,
     
 
 
-![png](/images/images/output_31_2.png)
+![png](/images/output_31_2.png)
 
 
 ## Interpretation & Further Thoughts
@@ -201,7 +201,7 @@ plt.show()
 ```
 
 
-![png](/images/images/output_41_0.png)
+![png](/images/output_41_0.png)
 
 
 Visualizing the Fast Fourier Transform
@@ -229,7 +229,7 @@ plt.show()
 ```
 
 
-![png](/images/images/output_43_0.png)
+![png](/images/output_43_0.png)
 
 
 Here we have a Fast Fourier Transform plotted. The magnitudes indicate the contribution of each frequency in the sound. The larger the magnitude, the heavier the contribution of the frequency. Here we can see that the majority of the energy resides in the lower frequencies. The only issue with the FFT is the fact that it is static; there is no time associated with this plot. So in order to incorporate time into our audio to see what frequencies impact at what time, we should use the Short-Time Fourier Transformation.
@@ -260,7 +260,7 @@ plt.show()
 ```
 
 
-![png](/images/images/output_46_0.png)
+![png](/images/output_46_0.png)
 
 
 As we can see (or not see), most of the frequencies in our audio contribute very little amplitude to the overall sound. 
@@ -272,7 +272,7 @@ to_spectrogram(signal, sr=48000, hop_length=128, n_fft=1024, vmin=-40, vmax=30)
 ```
 
 
-![png](/images/images/output_48_0.png)
+![png](/images/output_48_0.png)
 
 
 A spectrogram is basically composed of multiple Fast Fourier Transforms, where each FFT is calculated on overlapping windowed portions of the signal. In order for us to visualize “loudness” in our signal, we must convert from amplitude to decibels.This allows us to view the loudness of frequencies over time. By switching from a scale in amplitude to decibels, we create an image with more information to give to our model.
@@ -289,7 +289,7 @@ to_mel_spectro(signal, sr, hop_length=128, n_fft=1024, figsize=(10,8), vmin=-40,
 ```
 
 
-![png](/images/images/output_51_0.png)
+![png](/images/output_51_0.png)
 
 
 A mel-spectrogram is a spectrogram where the frequencies are converted to the mel-scale. According to the University of California, the mel-scale is “a perceptual scale of pitches judged by listeners to be equal in distance from one another”. We can picture this as notes on a musical scale:
@@ -329,7 +329,7 @@ plt.show()
 ```
 
 
-![png](/images/images/output_56_0.png)
+![png](/images/output_56_0.png)
 
 
 When looking at the spectrograms, there's not much we can take away just by looking at them. We notice the coughs are roughly the same length in duration, and the prominence of some frequencies of sound may be slightly different when comparing patients (male vs female, older vs younger, etc). 
@@ -409,27 +409,27 @@ viru_hist1 = fit_plot_report_gen(viru_model1, viru_train_gen, viru_test_gen,
     
 
 
-![png](/images/images/output_59_1.png)
+![png](/images/output_59_1.png)
 
 
 
-![png](/images/images/output_59_2.png)
+![png](/images/output_59_2.png)
 
 
 
-![png](/images/images/output_59_3.png)
+![png](/images/output_59_3.png)
 
 
 
-![png](/images/images/output_59_4.png)
+![png](/images/output_59_4.png)
 
 
 
-![png](/images/images/output_59_5.png)
+![png](/images/output_59_5.png)
 
 
 
-![png](/images/images/output_59_6.png)
+![png](/images/output_59_6.png)
 
 
     ------------------------------------------------------------
@@ -463,7 +463,7 @@ plt.show()
 ```
 
 
-![png](/images/images/output_63_0.png)
+![png](/images/output_63_0.png)
 
 
 ### Column information
@@ -541,7 +541,7 @@ plt.title('Distribution of Duration of Audio Files');
 ```
 
 
-![png](/images/images/output_80_0.png)
+![png](/images/output_80_0.png)
 
 
 Above, we see that the majority of our audio in the target coughvid data is around 10 seconds long. However, there is a lot of data that is less than 10 seconds. Our next step is to combine the virufy data with the coughvid data, and then extend the audio files that are less than 10 seconds. Below, we find that the 99th percentile is approximately 10.02 seconds. We will set 10.02 as the maximum duration for our audio files.
@@ -620,27 +620,27 @@ spectro_fpr = fit_plot_report_gen(spectro_model1, train_spectro_gen,
     
 
 
-![png](/images/images/output_96_2.png)
+![png](/images/output_96_2.png)
 
 
 
-![png](/images/images/output_96_3.png)
+![png](/images/output_96_3.png)
 
 
 
-![png](/images/images/output_96_4.png)
+![png](/images/output_96_4.png)
 
 
 
-![png](/images/images/output_96_5.png)
+![png](/images/output_96_5.png)
 
 
 
-![png](/images/images/output_96_6.png)
+![png](/images/output_96_6.png)
 
 
 
-![png](/images/images/output_96_7.png)
+![png](/images/output_96_7.png)
 
 
     ------------------------------------------------------------
@@ -713,27 +713,27 @@ spectro_oversamp_fpr = fit_plot_report_gen(spectro_model3, train_spec_gen, test_
     
 
 
-![png](/images/images/output_100_1.png)
+![png](/images/output_100_1.png)
 
 
 
-![png](/images/images/output_100_2.png)
+![png](/images/output_100_2.png)
 
 
 
-![png](/images/images/output_100_3.png)
+![png](/images/output_100_3.png)
 
 
 
-![png](/images/images/output_100_4.png)
+![png](/images/output_100_4.png)
 
 
 
-![png](/images/images/output_100_5.png)
+![png](/images/output_100_5.png)
 
 
 
-![png](/images/images/output_100_6.png)
+![png](/images/output_100_6.png)
 
 
     ------------------------------------------------------------
