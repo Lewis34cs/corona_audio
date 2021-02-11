@@ -337,7 +337,7 @@ When looking at the spectrograms, there's not much we can take away just by look
 ### Modeling off of the virufy spectrogram images
 
 
-```python
+<!-- ```python
 viru_hist1 = fit_plot_report_gen(viru_model1, viru_train_gen, viru_test_gen, 
                                  viru_val_gen, epochs=25, 
                                  class_weights=class_weights_dict)
@@ -392,7 +392,7 @@ viru_hist1 = fit_plot_report_gen(viru_model1, viru_train_gen, viru_test_gen,
     Epoch 24/25
     3/3 [==============================] - 12s 4s/step - loss: 5.4741e-04 - acc: 1.0000 - precision: 1.0000 - recall: 1.0000 - auc: 1.0000 - val_loss: 1.0772 - val_acc: 0.8182 - val_precision: 0.7500 - val_recall: 0.7500 - val_auc: 0.8393
     Epoch 25/25
-    3/3 [==============================] - 12s 4s/step - loss: 9.1163e-05 - acc: 1.0000 - precision: 1.0000 - recall: 1.0000 - auc: 1.0000 - val_loss: 1.2346 - val_acc: 0.8182 - val_precision: 0.7500 - val_recall: 0.7500 - val_auc: 0.7857
+    3/3 [==============================] - 12s 4s/step - loss: 9.1163e-05 - acc: 1.0000 - precision: 1.0000 - recall: 1.0000 - auc: 1.0000 - val_loss: 1.2346 - val_acc: 0.8182 - val_precision: 0.7500 - val_recall: 0.7500 - val_auc: 0.7857 -->
     ---------------------------------------------------------
                       Classification Report
     
@@ -421,7 +421,7 @@ viru_hist1 = fit_plot_report_gen(viru_model1, viru_train_gen, viru_test_gen,
 
 
 
-![png](/images/output_59_4.png)
+<!-- ![png](/images/output_59_4.png) -->
 
 
 
@@ -429,7 +429,7 @@ viru_hist1 = fit_plot_report_gen(viru_model1, viru_train_gen, viru_test_gen,
 
 
 
-![png](/images/output_59_6.png)
+<!-- ![png](/images/output_59_6.png) -->
 
 
     ------------------------------------------------------------
