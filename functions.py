@@ -3,6 +3,7 @@ import tensorflow as tf
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 import os, sys, glob, shutil
 from sklearn import metrics
 from sklearn.dummy import DummyClassifier
