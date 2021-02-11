@@ -271,44 +271,6 @@ def make_class_weights(train_gen, cls_weight='balanced', verbose=1):
     print(cwd)
   return cwd
 
-def create_basic_cnn(shape='',
-                     metrics=['acc', tf.keras.metrics.Precision(name='precision'),
-                              tf.keras.metrics.Recall(name='recall'), 
-                              tf.keras.metrics.AUC(name='auc')]):
-  """
-  Definition:
-  Creates a basic cnn model consisting of three layers and an output layer.
-
-  Args:
-  shape: this function requires an input shape in order for the model to be created.
-
-  Returns:
-  Returns a compiled model.
-  """
-  # We are requiring an input shape since we print the model.summary() at the 
-  # end of the function
-  if len(shape) < 1:
-    print('Please define input shape!')
-  else:
-    # Input layer
-    model = Sequential()
-    model.add(layers.Conv2D(32, (3,3), activation='relu', input_shape=shape))
-    model.add(MaxPooling2D((2, 2)))
-
-    # Second layer
-    model.add(layers.Conv2D(64, (3,3), activation='relu'))
-    model.add(MaxPooling2D((2, 2)))
-      
-    # Third layer
-    model.add(Flatten())
-    model.add(layers.Dense(128, activation='relu'))
-      
-    # Output layer
-    model.add(layers.Dense(3, activation='softmax'))
-    model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=metrics)
-    print(model.summary())
-    return model
-
 def plot_history(history, metric_list=['acc', 'loss', 'precision', 'recall', 'auc']):
   """
   Definition:
@@ -740,124 +702,6 @@ def to_mel_spectro(signal, sr, hop_length, n_fft, cmap='magma',
   plt.colorbar(label='dB')
   plt.show()
 
-def viru_spectro_model(shape='', opt=tf.keras.optimizers.Adam(), 
-                        metrics=['acc', tf.keras.metrics.Precision(name='precision'),
-                                        tf.keras.metrics.Recall(name='recall'), 
-                                        tf.keras.metrics.AUC(name='auc')],
-                        loss='binary_crossentropy', 
-                        verbose=1):
-  """
-  Definition:
-  Creates and compiles a neural network model. 
-
-  Args:
-  shape: default = ''. The input shape of the images to be passed in to the 
-  neural network. The size must be the same as the images being passed in.
-  metrics: default = ['acc', tf.keras.metrics.Precision(name='precision'),
-                             tf.keras.metrics.Recall(name='recall'), 
-                             tf.keras.metrics.AUC(name='auc')].
-           The metrics that are to be analyzed and plotted from the 
-           training of the model.
-  verbose: default = 1. If 1, prints a summary of the model upon compilation.
-
-  Returns:
-  The model, along with the model.summary() if verbose = 1.
-  """
-  if len(shape) < 1:
-    print('Please define input shape!')
-  else:
-    model = Sequential()
-    model.add(layers.Conv2D(32, (3,3), activation='relu', input_shape=shape))
-    model.add(MaxPooling2D((2, 2)))
-    
-    model.add(layers.Conv2D(64, (3,3), activation='relu'))
-    model.add(MaxPooling2D((2, 2)))
-
-    # model.add(layers.Conv2D(128, (3, 3), activation='relu'))
-    # model.add(MaxPooling2D((2, 2)))
-
-    # model.add(layers.Conv2D(256, (3, 3), activation='relu'))
-    # model.add(MaxPooling2D((2, 2)))
-    
-    model.add(Flatten())
-    model.add(layers.Dense(512, activation='relu'))
-    model.add(layers.Dropout(0.2))
-
-    model.add(layers.Dense(256, activation='relu'))
-    model.add(layers.Dropout(0.2))
-
-    model.add(layers.Dense(128, activation='relu'))
-    #model.add(layers.Dropout(0.2))
-
-    model.add(layers.Dense(64, activation='relu'))
-
-    model.add(layers.Dense(32, activation='relu'))
-
-    model.add(layers.Dense(1, activation='sigmoid'))
-    model.compile(loss=loss, optimizer=opt, metrics=metrics)
-    if verbose:
-      print(model.summary())
-    return model
-
-def viru_mfcc_model(shape='', opt=tf.keras.optimizers.Adam(), 
-                        metrics=['acc', tf.keras.metrics.Precision(name='precision'),
-                                        tf.keras.metrics.Recall(name='recall'), 
-                                        tf.keras.metrics.AUC(name='auc')],
-                        loss='binary_crossentropy', 
-                        verbose=1):
-  """
-  Definition:
-  Creates and compiles a neural network model. 
-
-  Args:
-  shape: default = ''. The input shape of the images to be passed in to the 
-  neural network. The size must be the same as the images being passed in.
-  metrics: default = ['acc', tf.keras.metrics.Precision(name='precision'),
-                             tf.keras.metrics.Recall(name='recall'), 
-                             tf.keras.metrics.AUC(name='auc')].
-           The metrics that are to be analyzed and plotted from the 
-           training of the model.
-  verbose: default = 1. If 1, prints a summary of the model upon compilation.
-
-  Returns:
-  The model, along with the model.summary() if verbose = 1.
-  """
-  if len(shape) < 1:
-    print('Please define input shape!')
-  else:
-    model = Sequential()
-    model.add(layers.Conv2D(32, (3,3), activation='relu', input_shape=shape))
-    model.add(MaxPooling2D((2, 2)))
-    
-    model.add(layers.Conv2D(64, (3,3), activation='relu'))
-    model.add(MaxPooling2D((2, 2)))
-
-    # model.add(layers.Conv2D(128, (3, 3), activation='relu'))
-    # model.add(MaxPooling2D((2, 2)))
-
-    # model.add(layers.Conv2D(256, (3, 3), activation='relu'))
-    # model.add(MaxPooling2D((2, 2)))
-    
-    model.add(Flatten())
-    model.add(layers.Dense(512, activation='relu'))
-    model.add(layers.Dropout(0.2))
-
-    model.add(layers.Dense(256, activation='relu'))
-    model.add(layers.Dropout(0.2))
-
-    model.add(layers.Dense(128, activation='relu'))
-    #model.add(layers.Dropout(0.2))
-
-    model.add(layers.Dense(64, activation='relu'))
-
-    model.add(layers.Dense(32, activation='relu'))
-
-    model.add(layers.Dense(1, activation='sigmoid'))
-    model.compile(loss=loss, optimizer=opt, metrics=metrics)
-    if verbose:
-      print(model.summary())
-    return model
-
 def quality_scrub(df, target_cols = ['quality_1', 'quality_2', 'quality_3']):
   """
   Definition:
@@ -1165,10 +1009,6 @@ def reduce_audio_length(root_dir, new_dir):
   to run the function.
   """
   start = time.time()
-  if root_dir[-1] != '/':
-    root_dir = root_dir +'/'
-  if new_dir[-1] != '/':
-    new_dir = new_dir + '/'
 
   for status in os.listdir(root_dir):
     # making the file address
@@ -1191,129 +1031,6 @@ def reduce_audio_length(root_dir, new_dir):
     print(f'Finished with {status}')
   end = time.time()
   time_count(start, end)
-
-def spectro_model(shape='', opt=tf.keras.optimizers.Adam(), 
-                        metrics=['acc', tf.keras.metrics.Precision(name='precision'),
-                                        tf.keras.metrics.Recall(name='recall'), 
-                                        tf.keras.metrics.AUC(name='auc')],
-                        loss=tfa.losses.SigmoidFocalCrossEntropy(), 
-                        verbose=1, padding='same'):
-  """
-  Definition:
-  Creates and compiles a neural network model. 
-
-  Args:
-  shape: default = ''. The input shape of the images to be passed in to the 
-  neural network. The size must be the same as the images being passed in.
-  metrics: default = ['acc', tf.keras.metrics.Precision(name='precision'),
-                             tf.keras.metrics.Recall(name='recall'), 
-                             tf.keras.metrics.AUC(name='auc')].
-           The metrics that are to be analyzed and plotted from the 
-           training of the model. 
-  loss: default = tfa.losses.SigmoidFocalCrossEntropy(). The loss metric used when
-  the model is compiled.
-  verbose: default = 1. If 1, prints a summary of the model upon compilation.
-
-  Returns:
-  The model, along with the model.summary() if verbose = 1.
-  """
-  if len(shape) < 1:
-    print('Please define input shape!')
-  else:
-    model = Sequential()
-    model.add(layers.Conv2D(32, (3,3), activation='relu', padding=padding, input_shape=shape))
-    model.add(MaxPooling2D((2, 2)))
-    
-    model.add(layers.Conv2D(64, (3,3), activation='relu', padding=padding))
-    model.add(MaxPooling2D((2, 2)))
-
-    model.add(layers.Conv2D(128, (3, 3), activation='relu', padding=padding))
-    model.add(MaxPooling2D((2, 2)))
-
-    # model.add(layers.Conv2D(256, (3, 3), activation='relu'))
-    # model.add(MaxPooling2D((2, 2)))
-    
-    model.add(Flatten())
-    model.add(layers.Dense(512, activation='relu'))
-    model.add(layers.Dropout(0.2))
-
-    model.add(layers.Dense(256, activation='relu'))
-    model.add(layers.Dropout(0.2))
-
-    model.add(layers.Dense(128, activation='relu'))
-
-    model.add(layers.Dense(64, activation='relu'))
-
-    model.add(layers.Dense(32, activation='relu'))
-
-    model.add(layers.Dense(1, activation='sigmoid'))
-    model.compile(loss=loss, optimizer=opt, metrics=metrics)
-    print(model.summary())
-    return model
-
-def leaky_spectro_model(shape='', opt=tf.keras.optimizers.Adam(), alpha=0.2,
-                          metrics=['acc', tf.keras.metrics.Precision(name='precision'),
-                                        tf.keras.metrics.Recall(name='recall'), 
-                                        tf.keras.metrics.AUC(name='auc')],
-                        loss=tfa.losses.SigmoidFocalCrossEntropy(), verbose=1):
-  """
-  Definition:
-  Creates and compiles a neural network model. Utilizes leaky ReLU instead of relu
-  and the activation layer.
-
-  Args:
-  shape: default = ''. The input shape of the images to be passed in to the 
-  neural network. The size must be the same as the images being passed in.
-  metrics: default = ['acc', tf.keras.metrics.Precision(name='precision'),
-                             tf.keras.metrics.Recall(name='recall'), 
-                             tf.keras.metrics.AUC(name='auc')].
-           The metrics that are to be analyzed and plotted from the 
-           training of the model. 
-  loss: default = tfa.losses.SigmoidFocalCrossEntropy(). The loss metric used when
-  the model is compiled.
-  verbose: default = 1. If 1, prints a summary of the model upon compilation.
-
-  Returns:
-  The model, along with the model.summary() if verbose = 1.
-  """
-
-  if len(shape) < 1:
-    print('Please define input shape!')
-  else:
-    model = Sequential()
-    model.add(layers.Conv2D(32, (3,3), input_shape=shape))
-    model.add(layers.LeakyReLU(alpha=alpha))
-    model.add(MaxPooling2D((2, 2)))
-    
-    model.add(layers.Conv2D(64, (3,3)))
-    model.add(layers.LeakyReLU(alpha=alpha))
-    model.add(MaxPooling2D((2, 2)))
-
-    model.add(layers.Conv2D(128, (5, 5)))
-    model.add(layers.LeakyReLU(alpha=alpha))
-    model.add(MaxPooling2D((4, 4)))
-
-    model.add(layers.Conv2D(256, (3, 3)))
-    model.add(layers.LeakyReLU(alpha=alpha))
-    model.add(MaxPooling2D((2, 2)))
-    
-    model.add(Flatten())
-    model.add(layers.Dense(256))
-    model.add(layers.LeakyReLU(alpha=alpha))
-    model.add(layers.Dropout(0.2))
-
-    model.add(layers.Dense(128))
-    model.add(layers.LeakyReLU(alpha=alpha))
-    model.add(layers.Dropout(0.2))
-
-    model.add(layers.Dense(64))
-    model.add(layers.LeakyReLU(alpha=alpha))
-
-    model.add(layers.Dense(1, activation='sigmoid'))
-    model.compile(loss=loss, optimizer=opt, metrics=metrics)
-    if verbose:
-      print(model.summary())
-    return model
 
 def display_images(source, amnt_to_display):
   """
@@ -1346,4 +1063,3 @@ def display_images(source, amnt_to_display):
       plt.yticks([])
       # fitting the images closer together
       plt.tight_layout()
-    
