@@ -1,3 +1,5 @@
+<img src="https://www.un.org/sites/un2.un.org/files/covid19_response_icon.svg" width="170" height="150" alt="COVID-19 Response Logo">
+
 # COVID-19 Classification Through Various Methods 
 
 Part 1:
