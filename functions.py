@@ -17,6 +17,7 @@ from google.colab import files
 import splitfolders
 from tqdm import tqdm
 from pydub import AudioSegment
+from pydub.utils import make_chunks
 import ffmpeg
 import soundfile as sf
 import lime
@@ -28,7 +29,6 @@ import librosa
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.preprocessing.image import array_to_img, img_to_array, load_img
 from tensorflow.keras.models import Sequential, save_model, load_model
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, LSTM
 from tensorflow.keras import models, layers, optimizers, regularizers
 from tensorflow.keras.applications import VGG19, InceptionV3, DenseNet121
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
@@ -506,7 +506,7 @@ def clahe_preprocessing(root_dir, new_dir):
       continue
 
     # applying the clahe mask and saving the updated image to the new folder
-    for image in os.listdir(root_dir + folder):
+    for image in tqdm(os.listdir(root_dir + folder), desc=folder):
       img = cv2.imread(root_dir + folder + '/' + image, 0)
       cl_img = clahe.apply(img)
       os.makedirs(new_dir + folder, exist_ok=True)
@@ -799,7 +799,7 @@ def convert_audio(root_dir, new_dir):
   end = time.time()
   time_count(start, end)
 
-def get_audio_duration(root_dir):
+def get_audio_duration(root_dir, dplot=0, verbose=1):
   """
   Definition:
   Finds the duration of each audio file in a folder, uses the librosa library to
@@ -832,6 +832,14 @@ def get_audio_duration(root_dir):
 
   df = pd.Series(duration_list, name='duration').to_frame()
 
+  if dplot:
+    sns.histplot(df, x='duration')
+    plt.title('Distribution of Duration of Audio Files')
+    plt.show()
+  
+  if verbose:
+    print('\n', df.describe())
+  
   end = time.time()
   time_count(start, end)
   return df
@@ -1014,7 +1022,7 @@ def reduce_audio_length(root_dir, new_dir):
     # making the file address
     address = root_dir + status + '/'
     os.makedirs(new_dir + status, exist_ok=True)
-    for audio_file in os.listdir(address):
+    for audio_file in tqdm(os.listdir(address), desc=status):
       # creating a tag to fit into the write_wav() function
       tag = audio_file.split('/')[-1][:-4]
       
@@ -1025,31 +1033,33 @@ def reduce_audio_length(root_dir, new_dir):
       trimmed_sig, index = librosa.effects.trim(signal)
 
       # Saving our trimmed signal to the new directory
-      librosa.output.write_wav(path=new_dir + status + '/' + tag + '.wav', 
-                               y=trimmed_sig, sr=sr)
+      # output.write_wav was removed from librosa in 0.8.0
+      # librosa.output.write_wav(path=new_dir + status + '/' + tag + '.wav', 
+      #                          y=trimmed_sig, sr=sr)
       
-    print(f'Finished with {status}')
+      sf.write(file=new_dir + status + '/' + tag + '.wav', data=trimmed_sig, 
+      samplerate=sr)
+
   end = time.time()
   time_count(start, end)
 
-def display_images(source, amnt_to_display):
+def display_images(source):
   """
   Definition:
-  Define the 'source' variable by giving it a filepath containing images along with
-  setting the number you wish to view through the variable 'amnt_to_display'. The
-  function will plot the selected number of images within the file and display them.
+  Define the 'source' variable by giving it a filepath containing images. The
+  function will plot 2 random images within the file and display them.
 
   Args:
   source: Required. A filepath containing images.
-  amnt_to_display: Required. The number of images you wish to display.
 
   Returns:
-  Plots a certain amount of images from the selected filepath.
+  Plots 2 random images from the selected filepath.
   """
   
   plt.figure(figsize=(20,10))
-  cols = amnt_to_display//2
-  images = os.listdir(source)[:amnt_to_display]
+  cols = 2//2
+  i_choice = np.random.choice(range(len(os.listdir(source))))
+  images = os.listdir(source)[i_choice:i_choice + 2]
   for i, img in enumerate(images):
       #Opening each image from its respective filepath
       x_image = Im.open(source+img)
