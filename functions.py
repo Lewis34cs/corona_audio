@@ -1073,3 +1073,41 @@ def display_images(source):
       plt.yticks([])
       # fitting the images closer together
       plt.tight_layout()
+
+def split_audio(root_dir, new_dir, chunk_length=2000):
+  """
+  Definition:
+  Segments audio files in the 'root_dir' based on the 'chunk_length'. These chunked
+  audio files are then saved into the 'new_dir' filepath.
+
+  Args:
+  root_dir: Required. The directory where the classes containing the audio files
+  are located.
+  new_dir: Required. The directory where the chunked audio files will be stored
+  according to class.
+  chunk_length: default = 2000. The time duration for each segment (milliseconds)
+
+  Returns:
+  Stores the chunked files into a new directory
+  """
+  start = time.time()
+
+  root_dir = ensure_filepath(root_dir)
+  new_dir = ensure_filepath(new_dir)
+
+  for status in os.listdir(root_dir):
+    base = ensure_filepath(root_dir + status)
+    new_base = ensure_filepath(new_dir + status)
+    os.makedirs(new_base, exist_ok=True)
+
+    for address in tqdm(os.listdir(base), desc=status):
+      audio_type = address.split('.')[-1]
+      full_audio = AudioSegment.from_file(base + address, audio_type) 
+      chunks = make_chunks(full_audio, chunk_length)
+
+      for i, chunk in enumerate(chunks):
+        seg_name = f"{address.split('.')[0]}-{i}.{audio_type}"
+        chunk.export(new_base + seg_name, format=audio_type)
+        
+  end = time.time()
+  time_count(start, end)
