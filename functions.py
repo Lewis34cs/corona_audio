@@ -1111,3 +1111,29 @@ def split_audio(root_dir, new_dir, chunk_length=2000):
         
   end = time.time()
   time_count(start, end)
+
+  def merge_data(first_folder, second_folder):
+  """
+  Definition:
+  Merges files from the first_folder into the second folder. File structures must
+  be equal. 
+
+  Args:
+  first_folder: Required. The folder that the files will be moved from.
+  second_folder: Required. The folder that will absorb the files from the first 
+  folder.
+
+  Returns:
+  Merges the files into the second folder.
+  """
+
+  for folder in os.listdir(first_folder):
+    first_address = first_folder + folder + '/'
+    new_address = second_folder + folder + '/'
+
+    for file in os.listdir(first_address):
+      file_address = first_address + file
+      try:
+        shutil.move(file_address, new_address)
+      except:
+        continue
