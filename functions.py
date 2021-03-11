@@ -1137,3 +1137,34 @@ def split_audio(root_dir, new_dir, chunk_length=2000):
         shutil.move(file_address, new_address)
       except:
         continue
+
+def make_hist(data, target, bins=10, figsize=(6, 5), title=None, plot_mean=1, 
+              kde=True):
+  """
+  Definition:
+  Plots a histogram of the target column within the selected dataframe. 
+
+  Args:
+  data: Required. The selected dataframe containing the column we want to plot.
+  target: Required. The target column within our selected dataframe.
+  bins: default = 10. The number of bins within the histogram.
+  figsize: default = (6, 5). The size of the histogram plot.
+  title: default = None. The title of the histogram. Must be a string.
+  plot_mean: default = 1. Boolean value indicating whether or not to shown a
+  vertical line representing the mean of the distribution.
+
+  Returns:
+  Plots a histogram.
+  """
+  
+  fig, ax = plt.subplots(figsize=figsize)
+  sns.histplot(data=data, x=target, bins=bins, kde=kde)
+  if plot_mean:
+    plt.axvline(x=data[target].mean(), c='r', label=f"Mean {target}")
+    plt.legend()
+  if title != None:
+    try:
+      plt.title(title)
+    except:
+      pass
+  plt.show()
