@@ -1,6 +1,6 @@
 <img src="https://www.un.org/sites/un2.un.org/files/covid19_response_icon.svg" width="170" height="150" alt="COVID-19 Response Logo">
 
-# COVID-19 Classification Through Various Methods 
+# COVID-19 Classification Through Chest X-Rays and Coughing Audio 
 
 Part 1:
 <a href="https://colab.research.google.com/github/Lewis34cs/corona_audio/blob/main/covid_proj_p1_xrays.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
